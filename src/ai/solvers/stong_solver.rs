@@ -1,7 +1,7 @@
-use std::{time::Instant, u8::MAX, cmp::max};
+use std::{time::Instant, cmp::max};
 
 use crate::player::Player;
-use crate::{ai::{transposition_table::Table, ai_game::AIGame, search_order::SEARCH_ORDER, negamax_score::score}, cashe_entry::{self, CasheFlag}, game::{Game, PlaceOutput}, Team};
+use crate::{ai::{transposition_table::Table, ai_game::AIGame, search_order::SEARCH_ORDER, negamax_score::score}, cashe_entry::{CasheFlag}, game::{Game, PlaceOutput}};
 
 pub struct StrongSolverPlayer(Table);
 

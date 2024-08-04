@@ -1,6 +1,6 @@
-use std::{collections::HashMap, fs::File, io::{self, BufRead, BufReader, Read, Write}, time::Instant};
+use std::{collections::HashMap, fs::File, io::{BufReader, Read, Write}};
 
-use super::{Table, CasheEntry};
+use super::{Table};
 
 const CASHE_FILE_PATH_BIN: &str="cache.bin";
 

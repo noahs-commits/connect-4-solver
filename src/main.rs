@@ -13,8 +13,6 @@ use crate::game::*;
 use crate::ai::*;
 use crate::tile::*;
 use crate::testing::*;
-use crate::ai::transposition_table::move_generator::*;
-use crate::ai::transposition_table::file_cashe::*;
 
 
 

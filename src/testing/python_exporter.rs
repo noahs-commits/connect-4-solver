@@ -62,7 +62,7 @@ pub fn generate_array(){
                 let (y,x)=(i%6,i/6);
 
 
-                let mut new_score=score_pos(y,x);
+                let new_score=score_pos(y,x);
 
                 let newX=6-x;
 

@@ -1,7 +1,4 @@
-use crate::game::{*, self};
-use crate::ai::cashe_entry::*;
-use crate::ai::*;
-use crate::ai::mask::*;
+use crate::game::{*};
 
 use super::ai_game::AIGame;
 
@@ -66,9 +63,9 @@ impl AIGame{
     estimate+=wins_count*_3IN_ROW_PREFERENCE;
     estimate+=self.game.score_openist() as f32*OPENIST_PREFERENCE;
     
-    (match self.cashe_value.unwrap() {
+    match self.cashe_value.unwrap() {
       Option::Some(cashe)=>cashe.restict_score_f32(estimate),
       Option::None=>estimate,
-    })
+    }
   }
 }

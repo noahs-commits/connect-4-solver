@@ -1,10 +1,8 @@
 use std::cmp::{max, min};
-use std::process::Output;
-use std::time::Instant;
 
 use super::ai_game::AIGame;
-use super::cashe_entry::{CasheFlag, self, CasheEntry};
-use super::move_generater::{gen_sorted_next_moves_2, gen_sorted_next_moves};
+use super::cashe_entry::{CasheFlag, CasheEntry};
+use super::move_generater::{gen_sorted_next_moves};
 use super::transposition_table::Table;
 
 

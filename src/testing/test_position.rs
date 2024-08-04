@@ -42,7 +42,7 @@ impl TestPosition{
     pub fn to_game(&self)->Result<Game,ToGameError>{
         let mut output=Game::new();
 
-        for mut col in self.moves.iter(){
+        for col in self.moves.iter(){
 
             let col=*col-1;
 
@@ -65,7 +65,7 @@ mod tests {
     // Note this useful idiom: importing names from outer (for mod tests) scope.
 
     use super::*;
-    use crate::tile::*;
+    
 
     #[test]
     fn test_position_loading() {

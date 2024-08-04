@@ -1,12 +1,5 @@
-use crate::ai::cashe_entry::*;
-use crate::ai::transposition_table::*;
-use crate::ai::search_order::*;
-use crate::ai::ai_game::*;
-use crate::game::*;
 
 
-use std::cmp::{max, min};
-use std::time::Instant;
 
 
 /*pub fn fill_table(){

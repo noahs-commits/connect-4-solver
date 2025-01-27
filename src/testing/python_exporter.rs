@@ -3,7 +3,6 @@ use std::{cmp::Ordering, fs::File, io::Write};
 use crate::{ai::{ai_game::AIGame, mask::BOARD_MASK}, bit_board::BitBoard};
 
 use super::{read_lines, test_position::TestPosition};
-use crate::ai::null_removing::gen_reachable_mask;
 
 
 
@@ -49,12 +48,9 @@ pub fn generate_array(){
 
             let ai_game=AIGame::new(game.clone());
 
-            let _3rowcount=ai_game.p1_win_pos.count_pieces() as i32-ai_game.p2_win_pos.count_pieces()as i32;
-            let _reachable=
-                gen_reachable_mask(ai_game.game.other_mask^BOARD_MASK).count_pieces()  as i32-
-                gen_reachable_mask(ai_game.game.current_mask^BOARD_MASK).count_pieces()  as i32;
+            let three_row_count=ai_game.p1_win_pos.count_pieces() as i32-ai_game.p2_win_pos.count_pieces()as i32;
             
-            tiles.push(_3rowcount);
+            tiles.push(three_row_count);
             tiles.push(ai_game.game.score_openist().into());
             //tiles.push(i32::MAX);
 

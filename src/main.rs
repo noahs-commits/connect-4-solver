@@ -8,6 +8,7 @@ mod player;
 
 
 use ai::transposition_table::Table;
+use testing::test_strong_solver;
 
 use crate::game::*;
 use crate::ai::*;
@@ -17,7 +18,7 @@ use crate::tile::*;
 
 
 fn main() {
-  
+  test_strong_solver("tests/End_Easy_Test");
 }
 
 fn play(){

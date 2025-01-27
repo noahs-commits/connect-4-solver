@@ -32,8 +32,8 @@ impl AIGame{
         return output;
     }
     pub fn update_helpers(&mut self){
-        self.p1_win_pos=_3inrow(self.game.current_mask)&(self.game.other_mask^BOARD_MASK);
-        self.p2_win_pos=_3inrow(self.game.other_mask)&(self.game.current_mask^BOARD_MASK);
+        self.p1_win_pos=(self.game.current_mask)&(self.game.other_mask^BOARD_MASK)._3inrow();
+        self.p2_win_pos=(self.game.other_mask)&(self.game.current_mask^BOARD_MASK)._3inrow();
 
         self.hash=self.game.hash(self.p1_win_pos,self.p2_win_pos);
         

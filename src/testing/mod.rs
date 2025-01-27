@@ -153,3 +153,18 @@ pub fn test_strong_solver(filename: &str){
 
     println!("time: {}",total_time);
 }
+
+
+mod test{
+    use super::*;
+
+    #[test]
+    fn test_strong_solver_end_easy(){
+        test_strong_solver("tests/End_Easy_Test");
+    }
+
+    #[test]
+    fn test_weak_solver_end_easy(){
+        test_weak_solver("tests/End_Easy_Test");
+    }
+}

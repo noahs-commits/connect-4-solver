@@ -18,8 +18,8 @@ impl Game{
     let mut p1_bits=self.current_mask;
     let mut p2_bits=self.other_mask;
 
-    p1_bits&=gen_reachable_mask((self.other_mask  |p1_almost_wins)^BOARD_MASK);
-    p2_bits&=gen_reachable_mask((self.current_mask|p2_almost_wins)^BOARD_MASK);
+    p1_bits&=((self.other_mask  |p1_almost_wins)^BOARD_MASK).gen_reachable_mask();
+    p2_bits&=((self.current_mask|p2_almost_wins)^BOARD_MASK).gen_reachable_mask();
 
     p1_bits|=p1_almost_wins;
     p2_bits|=p2_almost_wins;

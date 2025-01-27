@@ -2,7 +2,7 @@ use std::cmp::{max, min};
 
 use super::ai_game::AIGame;
 use super::cashe_entry::{CasheFlag, CasheEntry};
-use super::move_generater::{gen_sorted_next_moves};
+use super::move_generater::gen_sorted_next_moves;
 use super::transposition_table::Table;
 
 

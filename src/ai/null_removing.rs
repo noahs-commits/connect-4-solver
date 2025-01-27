@@ -7,60 +7,6 @@ use crate::game::*;
 use crate::ai::mask::*;
 
 
-pub fn gen_reachable_mask(placeable: BitBoard)->BitBoard{
-  
-  let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
-  
-
-  let mut reachable_mask=bit_board::EMPTY;
-  
-  for offset in offsets{
-
-    //let x hold all the places with that are the start of a win
-    let x=placeable&(placeable>>offset);
-    let x=x&(x>>(2*offset));
-
-    //make x hold all the bits that hold the win
-
-    let x=x|(x<<offset);
-    let x=x|(x<<(2*offset));
-
-    reachable_mask|=x;
-  }
-  return reachable_mask;
-}
-
-pub fn _3inrow(bits: BitBoard) -> BitBoard{
-
-  let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
-  let mut all_win_pos=bit_board::EMPTY;
-  
-  for offset in offsets{
-
-    let x=bits^(bits>>offset);
-    let bits1or3=x^(x>>(2*offset));
-
-    
-    let x=bits|(bits>>offset);
-    let not1=x&(x>>(2*offset));
-
-    let bits3=bits1or3&(not1);
-
-    let x=bits3|(bits3<<offset);
-    let smeared=x|(x<<(2*offset));
-
-    let located_win_pos=smeared&(bits.not());
-
-    all_win_pos|=located_win_pos;
-    
-  }
-  all_win_pos&=BOARD_MASK;
-
-  return all_win_pos;
-}
-
-
-
 impl Game {
     pub fn score_openist(&self)->i8{
       let mut output=0;

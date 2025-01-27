@@ -5,7 +5,7 @@ use std::mem::swap;
 
 use crate::{bit_board_smear, tile::*};
 
-use bit_board::BitBoard;
+use bit_board::{BitBoard, OFFSETS};
 use colored::Colorize;
 
 pub const WIDTH:  u8=7;
@@ -44,10 +44,7 @@ impl Game{
     self.current_mask|=BitBoard::new(1<<center);
 
     //check win
-    
-    let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
-
-    for offset in offsets{
+    for offset in OFFSETS{
 
       let wins_bitboard=bit_board_smear!(self.current_mask,offset,&);
 

@@ -1,13 +1,12 @@
 use std::ops::{
     BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Shl, ShlAssign, Shr, ShrAssign,
 };
-
 use crate::mask::BOARD_MASK;
-
 use super::COLLUM_SPACING;
+use crate::bit_board_smear;
 
 pub const EMPTY: BitBoard = BitBoard(0);
-use crate::bit_board_smear;
+pub const OFFSETS: [u8; 4] = [COLLUM_SPACING - 1, COLLUM_SPACING, COLLUM_SPACING + 1, 1];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BitBoard(pub u64);
@@ -29,11 +28,9 @@ impl BitBoard {
         self.0.count_ones()
     }
     pub fn gen_reachable_mask(self) -> BitBoard {
-        let offsets = [COLLUM_SPACING - 1, COLLUM_SPACING, COLLUM_SPACING + 1, 1];
-
         let mut reachable_mask = EMPTY;
 
-        for offset in offsets {
+        for offset in OFFSETS {
             //find all wins with the given offset and put a one in the bit with the most signifcant bit with the win
             let win_most_significant=bit_board_smear!(self,offset,&);
 
@@ -45,10 +42,9 @@ impl BitBoard {
         return reachable_mask;
     }
     pub fn _3inrow(self) -> BitBoard {
-        let offsets = [COLLUM_SPACING - 1, COLLUM_SPACING, COLLUM_SPACING + 1, 1];
         let mut all_win_pos = EMPTY;
 
-        for offset in offsets {
+        for offset in OFFSETS {
 
             let bits1or3 = bit_board_smear!(self,offset,^);
 

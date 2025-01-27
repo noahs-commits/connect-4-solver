@@ -3,7 +3,7 @@ pub mod bit_board;
 
 use std::mem::swap;
 
-use crate::tile::*;
+use crate::{bit_board_smear, tile::*};
 
 use bit_board::BitBoard;
 use colored::Colorize;
@@ -48,9 +48,10 @@ impl Game{
     let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
 
     for offset in offsets{
-      let x1=self.current_mask&(self.current_mask>>offset);
-      let x2=x1&(x1>>(2*offset));
-      if !x2.is_empty(){
+
+      let wins_bitboard=bit_board_smear!(self.current_mask,offset,&);
+
+      if !wins_bitboard.is_empty(){
         return PlaceOutput::Win;
       }
     }

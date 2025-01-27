@@ -2,7 +2,6 @@ use bit_board::BitBoard;
 
 use crate::game::*;
 use crate::ai::mask::*;
-use crate::ai::null_removing::*;
 
 use std::cmp::Ordering;
 

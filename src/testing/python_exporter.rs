@@ -51,7 +51,7 @@ pub fn generate_array(){
             let three_row_count=ai_game.p1_win_pos.count_pieces() as i32-ai_game.p2_win_pos.count_pieces()as i32;
             
             tiles.push(three_row_count);
-            tiles.push(ai_game.game.score_openist().into());
+            tiles.push(ai_game.game.score_openness().into());
             //tiles.push(i32::MAX);
 
             for i in 0..42{

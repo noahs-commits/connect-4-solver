@@ -1,6 +1,5 @@
 use std::u128;
 
-use bit_board::BitBoard;
 
 use crate::game::*;
 
@@ -8,7 +7,7 @@ use crate::ai::mask::*;
 
 
 impl Game {
-    pub fn score_openist(&self)->i8{
+    pub fn score_openness(&self)->i8{
       let mut output=0;
 
       let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];

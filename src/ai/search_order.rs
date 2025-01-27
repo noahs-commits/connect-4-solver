@@ -61,7 +61,7 @@ impl AIGame{
     let wins_count=self.p1_win_pos.count_pieces() as f32 -self.p2_win_pos.count_pieces() as f32;
 
     estimate+=wins_count*_3IN_ROW_PREFERENCE;
-    estimate+=self.game.score_openist() as f32*OPENIST_PREFERENCE;
+    estimate+=self.game.score_openness() as f32*OPENIST_PREFERENCE;
     
     match self.cashe_value.unwrap() {
       Option::Some(cashe)=>cashe.restict_score_f32(estimate),

@@ -1,6 +1,6 @@
 use std::{cmp::Ordering, fs::File, io::Write};
 
-use crate::{ai::{ai_game::AIGame, mask::BOARD_MASK}, bit_board::{self, BitBoard}};
+use crate::{ai::{ai_game::AIGame, mask::BOARD_MASK}, bit_board::BitBoard};
 
 use super::{read_lines, test_position::TestPosition};
 use crate::ai::null_removing::gen_reachable_mask;
@@ -50,7 +50,7 @@ pub fn generate_array(){
             let ai_game=AIGame::new(game.clone());
 
             let _3rowcount=ai_game.p1_win_pos.count_pieces() as i32-ai_game.p2_win_pos.count_pieces()as i32;
-            let reachable=
+            let _reachable=
                 gen_reachable_mask(ai_game.game.other_mask^BOARD_MASK).count_pieces()  as i32-
                 gen_reachable_mask(ai_game.game.current_mask^BOARD_MASK).count_pieces()  as i32;
             
@@ -64,7 +64,7 @@ pub fn generate_array(){
 
                 let new_score=score_pos(y,x);
 
-                let newX=6-x;
+                let _new_x=6-x;
 
                 /*if (newX>x){
                     new_score+=score_pos(y,newX);
@@ -93,12 +93,12 @@ pub fn generate_array(){
     }
 
     let output=all_scores.into_iter().map( |sub_arr| 
-            VecToString(sub_arr, ",")
+            vec_to_string(sub_arr, ",")
     ).collect::<Vec<String>>();
 
     println!("{}",output[0].len());
 
-    let output=format!("x={}\n\n\ny={}", VecToString(output, ",\n"),VecToString(y_vals, ","));
+    let output=format!("x={}\n\n\ny={}", vec_to_string(output, ",\n"),vec_to_string(y_vals, ","));
 
     let mut file = File::create("python_code.txt").unwrap();
 
@@ -109,7 +109,7 @@ pub fn generate_array(){
 
 }
 
-fn VecToString<T: std::fmt::Display>(v: Vec<T>,sep: &str)->String{
+fn vec_to_string<T: std::fmt::Display>(v: Vec<T>,sep: &str)->String{
     let mut iter=v.into_iter().map(|x| x.to_string());
 
     let mut output=match iter.next() {

@@ -12,7 +12,6 @@ use ai::transposition_table::Table;
 use crate::game::*;
 use crate::ai::*;
 use crate::tile::*;
-use crate::testing::*;
 
 
 

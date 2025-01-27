@@ -23,8 +23,6 @@ pub fn test_weak_solver(filename: &str){
 
     let lines=read_lines(filename);
 
-    let now = Instant::now();
-
     let mut total_time=0f32;
 
     dbg!(lines.len());
@@ -91,8 +89,6 @@ pub fn test_strong_solver(filename: &str){
     println!("{}",filename);
 
     let lines=read_lines(filename);
-
-    let now = Instant::now();
 
     let mut total_time=0f32;
 

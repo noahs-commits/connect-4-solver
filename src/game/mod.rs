@@ -39,9 +39,8 @@ impl Game{
     if height==HEIGHT{
       return PlaceOutput::Full;
     }
-    let center: u64=(((COLLUM_SPACING)*col)+height) as u64;
     
-    self.current_mask|=BitBoard::new(1<<center);
+    self.current_mask|=BitBoard::place_singe_bit(col, height);
 
     //check win
     for offset in OFFSETS{
@@ -77,7 +76,7 @@ impl Game{
       for col in 0..WIDTH{  
         
         let h=self.heights[col as usize];
-        let mask=BitBoard::new(1<<(((COLLUM_SPACING)*col)+row) as u64);
+        let mask=BitBoard::place_singe_bit(col, row);
 
         let is_p1=!(mask&self.current_mask).is_empty();
         let is_p2=!(mask&self.other_mask  ).is_empty();

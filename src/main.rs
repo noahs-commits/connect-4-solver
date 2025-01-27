@@ -18,21 +18,7 @@ use crate::testing::*;
 
 
 fn main() {
-  //test_strong_solver("C:\\Users\\Favorite_Child\\OneDrive\\Desktop\\rust\\connect4\\tests\\Begin_Hard_Test");
-  //test_strong_solver("C:\\Users\\Favorite_Child\\OneDrive\\Desktop\\rust\\connect4\\tests\\End_Easy_Test");
-  //test_weak_solver("C:\\Users\\Favorite_Child\\OneDrive\\Desktop\\rust\\connect4\\tests\\Begin_Medium_Test");
-  test_strong_solver("tests\\Begin_Hard_Test");
-  //test_strong_solver("tests\\Middle_Medium_Test");
-  //let table=Table::load_from_file_jason().unwrap();
-
-  //table.store_in_file();
-  //Table::load_from_file();
-  //generate_array();
-  //generate_file_cashe();
-  //play();
-  //env::set_var("RUST_BACKTRACE", "full");
-  //test_end_game();
-  //fill_table();
+  
 }
 
 fn play(){

@@ -58,7 +58,7 @@ impl AIGame{
 
     let mut estimate=-GOAL_POSITIONS[last_index];
 
-    let wins_count=self.p1_win_pos.count_ones() as f32 -self.p2_win_pos.count_ones() as f32;
+    let wins_count=self.p1_win_pos.count_pieces() as f32 -self.p2_win_pos.count_pieces() as f32;
 
     estimate+=wins_count*_3IN_ROW_PREFERENCE;
     estimate+=self.game.score_openist() as f32*OPENIST_PREFERENCE;

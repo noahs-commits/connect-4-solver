@@ -1,27 +1,17 @@
+use bit_board::BitBoard;
+
 use crate::game::*;
 use crate::ai::mask::*;
 use crate::ai::null_removing::*;
 
 use std::cmp::Ordering;
 
-pub const fn gen_mask()->u64{
-  let mut output: u64=0;
-
-  let mut i=0;
-  while i<WIDTH{
-    output|=ROW_MASK<<(i*(HEIGHT+1));
-    i+=1;
-  };
-
-  return output
-}
-
-pub const ROW_MASK: u64= (1<<(HEIGHT as u128))-1;
+pub const ROW_MASK: BitBoard= BitBoard::new((1<<(HEIGHT as u128))-1);
 
 const HEIGHT_SIZE: usize=8-HEIGHT.leading_zeros() as usize;
 
 impl Game{
-  pub fn hash(&self,p1_almost_wins: u64,p2_almost_wins: u64)->u128{
+  pub fn hash(&self,p1_almost_wins: BitBoard,p2_almost_wins: BitBoard)->u128{
 
     //return (self.current_mask+2*self.other_mask) as u128;
     
@@ -78,9 +68,11 @@ impl Game{
   }
 }
 
-pub fn hash_row(p1_bits: u64,p2_bits: u64, col: u8,height: u8)->u64{
-  let p1=(p1_bits>>((COLLUM_SPACING)*col))&ROW_MASK;
-  let p2=(p2_bits>>((COLLUM_SPACING)*col))&ROW_MASK;
+pub fn hash_row(p1_bits: BitBoard,p2_bits: BitBoard, col: u8,height: u8)->u64{
+
+  let (p1_bits,p2_bits)=(p1_bits.0,p2_bits.0);
+  let p1=(p1_bits>>((COLLUM_SPACING)*col))&ROW_MASK.0;
+  let p2=(p2_bits>>((COLLUM_SPACING)*col))&ROW_MASK.0;
   let output=p1|(p2<<HEIGHT);
   let output=(output<<HEIGHT_SIZE)+(height as u64);
 

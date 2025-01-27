@@ -1,6 +1,6 @@
 use std::{cmp::Ordering, fs::File, io::Write};
 
-use crate::ai::{ai_game::AIGame, mask::BOARD_MASK};
+use crate::{ai::{ai_game::AIGame, mask::BOARD_MASK}, bit_board::{self, BitBoard}};
 
 use super::{read_lines, test_position::TestPosition};
 use crate::ai::null_removing::gen_reachable_mask;
@@ -32,10 +32,10 @@ pub fn generate_array(){
             let game=position.to_game().unwrap();
 
             let score_pos=|y: i32,x: i32|{
-                let i=y+x*7;
+                let i=(y+x*7) as u8;
 
-                let current_player_on=(game.current_mask>>i)&1==1;
-                let other_player_on=(game.other_mask>>i)&1==1;
+                let current_player_on=!((game.current_mask>>i)&BitBoard::new(1)).is_empty();
+                let other_player_on=!((game.other_mask>>i)&BitBoard::new(1)).is_empty();
 
                 let new_score=match (current_player_on,other_player_on) {
                     (true, true) => panic!(),
@@ -49,10 +49,10 @@ pub fn generate_array(){
 
             let ai_game=AIGame::new(game.clone());
 
-            let _3rowcount=ai_game.p1_win_pos.count_ones() as i32-ai_game.p2_win_pos.count_ones()as i32;
+            let _3rowcount=ai_game.p1_win_pos.count_pieces() as i32-ai_game.p2_win_pos.count_pieces()as i32;
             let reachable=
-                gen_reachable_mask(ai_game.game.other_mask^BOARD_MASK).count_ones()  as i32-
-                gen_reachable_mask(ai_game.game.current_mask^BOARD_MASK).count_ones()  as i32;
+                gen_reachable_mask(ai_game.game.other_mask^BOARD_MASK).count_pieces()  as i32-
+                gen_reachable_mask(ai_game.game.current_mask^BOARD_MASK).count_pieces()  as i32;
             
             tiles.push(_3rowcount);
             tiles.push(ai_game.game.score_openist().into());

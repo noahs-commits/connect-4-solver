@@ -1,3 +1,5 @@
+use bit_board::BitBoard;
+
 use crate::game::*;
 
 
@@ -13,6 +15,6 @@ const fn gen_mask()->u64{
   return output
 }
 
-pub const ALL_ROWS: u64=gen_mask();
-pub const BOARD_MASK: u64=ALL_ROWS*ROW_MASK;
-pub const ROW_MASK: u64= (1<<(HEIGHT as u128))-1;
+pub const ALL_ROWS: BitBoard=BitBoard::new(gen_mask());
+pub const BOARD_MASK: BitBoard=BitBoard::new(ALL_ROWS.0*ROW_MASK.0);
+pub const ROW_MASK: BitBoard= BitBoard::new((1<<(HEIGHT as u128))-1);

@@ -64,6 +64,8 @@ impl TestPosition{
 mod tests {
     // Note this useful idiom: importing names from outer (for mod tests) scope.
 
+    use bit_board::BitBoard;
+
     use super::*;
     
 
@@ -80,7 +82,7 @@ mod tests {
     fn test_game_generation() {
         let generated=TestPosition::load("23163416124767223154467471272416755633 0").unwrap().to_game().unwrap();
 
-        let correct=Game { current_mask: 193652848827047, other_mask: 85590756574488, heights: [6, 6, 5, 6, 3, 6, 6], turn: 38 };
+        let correct=Game { current_mask: BitBoard::new(193652848827047), other_mask: BitBoard::new(85590756574488), heights: [6, 6, 5, 6, 3, 6, 6], turn: 38 };
 
         assert_eq!(generated, correct);
     }

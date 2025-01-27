@@ -1,3 +1,5 @@
+use bit_board::BitBoard;
+
 use crate::game::*;
 
 use crate::ai::null_removing::*;
@@ -8,8 +10,8 @@ use crate::ai::transposition_table::*;
 #[derive(Debug, Clone, PartialEq)]
 pub struct AIGame{
     pub game: Game,
-    pub p1_win_pos: u64,
-    pub p2_win_pos: u64,
+    pub p1_win_pos: BitBoard,
+    pub p2_win_pos: BitBoard,
     pub hash: u128,
     pub cashe_value: Option<Option<CasheEntry>>,
     pub last_move: u8,
@@ -20,8 +22,8 @@ impl AIGame{
     pub fn new(game: Game)->Self{
         let mut output=AIGame{
             game: game,
-            p1_win_pos: 0,
-            p2_win_pos: 0,
+            p1_win_pos: bit_board::EMPTY,
+            p2_win_pos: bit_board::EMPTY,
             hash: 0,
             cashe_value: Option::None,
             last_move: 0,

@@ -1,16 +1,18 @@
 use std::u128;
 
+use bit_board::BitBoard;
+
 use crate::game::*;
 
 use crate::ai::mask::*;
 
 
-pub fn gen_reachable_mask(placeable: u64)->u64{
+pub fn gen_reachable_mask(placeable: BitBoard)->BitBoard{
   
   let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
   
 
-  let mut reachable_mask=0;
+  let mut reachable_mask=bit_board::EMPTY;
   
   for offset in offsets{
 
@@ -28,10 +30,10 @@ pub fn gen_reachable_mask(placeable: u64)->u64{
   return reachable_mask;
 }
 
-pub fn _3inrow(bits: u64) -> u64{
+pub fn _3inrow(bits: BitBoard) -> BitBoard{
 
   let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
-  let mut all_win_pos=0;
+  let mut all_win_pos=bit_board::EMPTY;
   
   for offset in offsets{
 
@@ -47,7 +49,7 @@ pub fn _3inrow(bits: u64) -> u64{
     let x=bits3|(bits3<<offset);
     let smeared=x|(x<<(2*offset));
 
-    let located_win_pos=smeared&(!bits);
+    let located_win_pos=smeared&(bits.not());
 
     all_win_pos|=located_win_pos;
     
@@ -64,8 +66,8 @@ impl Game {
       let mut output=0;
 
       let offsets=[COLLUM_SPACING-1,COLLUM_SPACING,COLLUM_SPACING+1,1];
-      let current_player: [u64; 2]=[self.current_mask,self.other_mask];
-      let placeable: [u64; 2]=[self.other_mask^BOARD_MASK,self.current_mask^BOARD_MASK];
+      let current_player: [u64; 2]=[self.current_mask.0,self.other_mask.0];
+      let placeable: [u64; 2]=[(self.other_mask^BOARD_MASK).0,(self.current_mask^BOARD_MASK).0];
 
       let current_player: u128=bytemuck::cast(current_player);//unsafe {std::mem::transmute(current_player)};
       let placeable: u128=bytemuck::cast(placeable);//unsafe {std::mem::transmute(placeable)};

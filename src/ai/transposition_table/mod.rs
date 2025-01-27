@@ -92,7 +92,6 @@ impl Table{
     }
     pub fn get(&self,key: &AIGame)->Option<CasheEntry>{
 
-
         if Self::use_early_cash(key){
             return self.early_cash.get(&key.hash).copied();
             /*match self.early_cash.get(&key.hash) {

@@ -1,8 +1,11 @@
 
+pub mod bit_board;
+
 use std::mem::swap;
 
 use crate::tile::*;
 
+use bit_board::BitBoard;
 use colored::Colorize;
 
 pub const WIDTH:  u8=7;
@@ -15,8 +18,8 @@ pub const USIZE_COLLUM_SPACING: usize=COLLUM_SPACING as usize;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Game{
-  pub current_mask:u64,
-  pub other_mask: u64,
+  pub current_mask: BitBoard,
+  pub other_mask: BitBoard,
   pub heights: [u8;USIZE_WIDTH],
   pub turn: u8,
 }
@@ -38,7 +41,7 @@ impl Game{
     }
     let center: u64=(((COLLUM_SPACING)*col)+height) as u64;
     
-    self.current_mask|=1<<center;
+    self.current_mask|=BitBoard::new(1<<center);
 
     //check win
     
@@ -47,13 +50,12 @@ impl Game{
     for offset in offsets{
       let x1=self.current_mask&(self.current_mask>>offset);
       let x2=x1&(x1>>(2*offset));
-      if x2!=0{
+      if !x2.is_empty(){
         return PlaceOutput::Win;
       }
     }
     //flipPlayer
     self.turn+=1;
-    
     swap(&mut self.current_mask, &mut self.other_mask);
     
     PlaceOutput::Ok
@@ -77,10 +79,10 @@ impl Game{
       for col in 0..WIDTH{  
         
         let h=self.heights[col as usize];
-        let mask=1<<(((COLLUM_SPACING)*col)+row) as u64;
+        let mask=BitBoard::new(1<<(((COLLUM_SPACING)*col)+row) as u64);
 
-        let is_p1=mask&self.current_mask!=0;
-        let is_p2=mask&self.other_mask  !=0;
+        let is_p1=!(mask&self.current_mask).is_empty();
+        let is_p2=!(mask&self.other_mask  ).is_empty();
 
         let char=match(is_p1,is_p2){
           (true,true)=>{"?".normal()},
@@ -106,16 +108,16 @@ impl Game{
   pub fn print_mask(p1_bits: u64,p2_bits: u64){
     Game {
       heights: [0; WIDTH as usize],
-      current_mask: p1_bits,
-      other_mask: p2_bits,
+      current_mask: BitBoard::new(p1_bits),
+      other_mask: BitBoard::new(p2_bits),
       turn: 0,
     }.print();
   }
   pub fn new()->Self{
     Self {
       heights: [0; WIDTH as usize],
-      current_mask:0,
-      other_mask:0,
+      current_mask: BitBoard::new(0),
+      other_mask: BitBoard::new(0),
       turn: 0,
     }
   }

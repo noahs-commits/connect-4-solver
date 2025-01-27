@@ -65,8 +65,6 @@ impl BitBoard {
     pub fn place_singe_bit(x: u8, y: u8)->BitBoard{
         let index=(COLLUM_SPACING*x)+y;
 
-        dbg!(index,1<<3);
-
         let board=BitBoard::new(1<<index);
 
         board
